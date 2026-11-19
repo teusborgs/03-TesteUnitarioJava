@@ -230,4 +230,19 @@ class ContaTest {
         assertFalse(conta.isAtiva());
     }
 
+    @Test
+    void depositar_ContaInativa_LancaIllegalStateException() {
+        // Arrange
+        var conta = new Conta("Maria", 100);
+        conta.sacar(100);
+        conta.encerrar();
+
+        // Act & Assert
+        assertThrows(IllegalStateException.class, () -> conta.depositar(50));
+
+        // Estado preservado
+        assertFalse(conta.isAtiva());
+        assertEquals(0, conta.getSaldo());
+    }
+
 }
