@@ -1,6 +1,7 @@
 package contabancaria;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
  * Testes unitários para a classe Conta.
  *
  * PARTE 1 — Testes de exemplo (Construtor) já estão prontos.
- *           Observe o padrão AAA e o uso de @Test e @ParameterizedTest.
+ *           Observe o padrão Arrange-Act-Assert (AAA) e o uso de @Test e @ParameterizedTest.
  *
  * PARTE 2 — Você deve escrever os testes para os demais métodos
  *           seguindo rigorosamente o ciclo TDD: Red → Green → Refactor.
@@ -126,6 +127,16 @@ class ContaTest {
         assertEquals(100, conta.getSaldo());
     }
 
+    // =======================================================
+    //  Testes para sacar
+    //  Sugestão de testes:
+    //    - Saque com valor válido atualiza o saldo
+    //    - Saque com valor maior que saldo lança IllegalStateException
+    //    - Saque com valor zero lança IllegalArgumentException
+    //    - Saque com valor negativo lança IllegalArgumentException
+    //    - Saque em conta inativa lança IllegalStateException
+    // =======================================================
+
     @Test
     void sacar_ValorValido_AtualizaSaldo() {
         // Arrange
@@ -137,16 +148,6 @@ class ContaTest {
         // Assert
         assertEquals(60, conta.getSaldo());
     }
-
-    // =======================================================
-    //  Testes para sacar
-    //  Sugestão de testes:
-    //    - Saque com valor válido atualiza o saldo
-    //    - Saque com valor maior que saldo lança IllegalStateException
-    //    - Saque com valor zero lança IllegalArgumentException
-    //    - Saque com valor negativo lança IllegalArgumentException
-    //    - Saque em conta inativa lança IllegalStateException
-    // =======================================================
 
     @Test
     void sacar_ValorZero_LancaIllegalArgumentException() {
@@ -182,7 +183,6 @@ class ContaTest {
     //    - Transferência com conta destino inativa lança exceção
     // =======================================================
 
-
     // =======================================================
     //  Testes para encerrar
     //  Sugestão de testes:
@@ -191,5 +191,17 @@ class ContaTest {
     //    - Encerrar conta já inativa lança IllegalStateException
     //    - Conta encerrada tem isAtiva() == false
     // =======================================================
+
+    @Test
+    void encerrar_ComSaldoZero_DesativaConta() {
+        // Arrange
+        var conta = new Conta("Maria", 0);
+
+        // Act
+        conta.encerrar();
+
+        // Assert
+        assertFalse(conta.isAtiva());
+    }
 
 }
