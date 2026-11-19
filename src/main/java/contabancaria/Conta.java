@@ -92,6 +92,9 @@ public class Conta {
         if (valor <= 0) {
             throw new IllegalArgumentException("O valor da transferencia deve ser maior que zero.");
         }
+        if (valor > saldo) {
+            throw new IllegalStateException("Saldo insuficiente para transferencia.");
+        }
         this.saldo -= valor;
         destino.saldo += valor;
     }
