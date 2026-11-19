@@ -197,6 +197,20 @@ class ContaTest {
         assertEquals(150, destino.getSaldo());
     }
 
+    @Test
+    void transferir_ValorZero_LancaIllegalArgumentException() {
+        // Arrange
+        var origem = new Conta("Maria", 200);
+        var destino = new Conta("João", 100);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> origem.transferir(destino, 0));
+
+        // Ambos saldos preservados
+        assertEquals(200, origem.getSaldo());
+        assertEquals(100, destino.getSaldo());
+    }
+
     // =======================================================
     //  Testes para encerrar
     //  Sugestão de testes:
