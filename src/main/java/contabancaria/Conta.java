@@ -71,6 +71,9 @@ public class Conta {
         if (valor <= 0) {
             throw new IllegalArgumentException("O valor do saque deve ser maior que zero.");
         }
+        if (valor > saldo) {
+            throw new IllegalStateException("Saldo insuficiente para saque.");
+        }
         saldo -= valor;
     }
 
