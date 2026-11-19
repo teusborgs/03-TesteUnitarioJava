@@ -89,6 +89,9 @@ public class Conta {
      *   - O saldo de ambas as contas deve ser atualizado corretamente.
      */
     public void transferir(Conta destino, double valor) {
+        if (!ativa || !destino.ativa) {
+            throw new IllegalStateException("Ambas as contas devem estar ativas.");
+        }
         if (valor <= 0) {
             throw new IllegalArgumentException("O valor da transferencia deve ser maior que zero.");
         }
