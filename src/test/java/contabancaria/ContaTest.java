@@ -217,4 +217,17 @@ class ContaTest {
         assertEquals(1, conta.getSaldo());
     }
 
+    @Test
+    void encerrar_ContaJaInativa_LancaIllegalStateException() {
+        // Arrange
+        var conta = new Conta("Maria", 0);
+        conta.encerrar();
+
+        // Act & Assert
+        assertThrows(IllegalStateException.class, () -> conta.encerrar());
+
+        // Permanece inativa
+        assertFalse(conta.isAtiva());
+    }
+
 }
