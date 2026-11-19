@@ -126,6 +126,18 @@ class ContaTest {
         assertEquals(100, conta.getSaldo());
     }
 
+    @Test
+    void sacar_ValorValido_AtualizaSaldo() {
+        // Arrange
+        var conta = new Conta("Maria", 100);
+
+        // Act
+        conta.sacar(40);
+
+        // Assert
+        assertEquals(60, conta.getSaldo());
+    }
+
     // =======================================================
     //  Testes para sacar
     //  Sugestão de testes:
